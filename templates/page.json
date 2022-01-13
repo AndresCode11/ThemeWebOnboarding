@@ -5,72 +5,18 @@
       "settings": {
       }
     },
-    "1642084497e26cbdd5": {
-      "type": "featured-blog",
+    "164209682071b368bd": {
+      "type": "featured-collection",
       "settings": {
-        "heading": "Blog posts",
-        "blog": "",
-        "post_limit": 3,
-        "show_image": true,
-        "show_date": true,
-        "show_author": false,
-        "soft_background": false,
+        "title": "Productos",
+        "collection": "colecion-verano",
+        "products_to_show": 4,
         "show_view_all": true,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "16420845350ee75eae": {
-      "type": "image-banner",
-      "blocks": {
-        "1642084535190f34c9-0": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "medium"
-          }
-        },
-        "1642084535190f34c9-1": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "1642084535190f34c9-2": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Button label",
-            "button_link_1": "",
-            "button_style_secondary_1": false,
-            "button_label_2": "Button label",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "1642084535190f34c9-0",
-        "1642084535190f34c9-1",
-        "1642084535190f34c9-2"
-      ],
-      "settings": {
-        "image_overlay_opacity": 0,
-        "image_height": "medium",
-        "adapt_height_first_image": false,
-        "desktop_content_position": "middle-center",
-        "show_text_box": true,
-        "desktop_content_alignment": "center",
-        "color_scheme": "background-1",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": true,
-        "show_text_below": true
-      }
-    },
-    "16420846594b8cb374": {
-      "type": "contact-form",
-      "settings": {
-        "heading": "Contact form",
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -78,8 +24,6 @@
   },
   "order": [
     "main",
-    "1642084497e26cbdd5",
-    "16420845350ee75eae",
-    "16420846594b8cb374"
+    "164209682071b368bd"
   ]
 }
