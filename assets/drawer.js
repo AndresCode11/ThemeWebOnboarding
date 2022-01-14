@@ -1,4 +1,4 @@
-var drawer = function () {
+let drawer = function () {
 
   /**
   * Element.closest() polyfill
@@ -24,7 +24,7 @@ var drawer = function () {
   //
   // Settings
   //
-  var settings = {
+  let settings = {
     speedOpen: 50,
     speedClose: 350,
     activeClass: 'is-active',
@@ -41,7 +41,7 @@ var drawer = function () {
   //
 
   // Toggle accessibility
-  var toggleccessibility = function (event) {
+  let toggleccessibility = function (event) {
     if (event.getAttribute('aria-expanded') === 'true') {
       event.setAttribute('aria-expanded', false);
     } else {
@@ -50,7 +50,7 @@ var drawer = function () {
   };
 
   // Open Drawer
-  var openDrawer = function (trigger) {
+  let openDrawer = function (trigger) {
 
     // Find target
     var target = document.getElementById(trigger.getAttribute('aria-controls'));
@@ -79,7 +79,7 @@ var drawer = function () {
   };
 
   // Close Drawer
-  var closeDrawer = function (event) {
+  let closeDrawer = function (event) {
 
     // Find target
     var closestParent = event.closest(settings.selectorTarget),
@@ -102,7 +102,7 @@ var drawer = function () {
   };
 
   // Click Handler
-  var clickHandler = function (event) {
+  let clickHandler = function (event) {
 
     // Find elements
     var toggle = event.target,
@@ -127,7 +127,7 @@ var drawer = function () {
   };
 
   // Keydown Handler, handle Escape button
-  var keydownHandler = function (event) {
+  let keydownHandler = function (event) {
 
     if (event.key === 'Escape' || event.keyCode === 27) {
 
@@ -146,19 +146,72 @@ var drawer = function () {
 
   };
 
-  var deleteProductCart = function(product_id) {
-    
+  /*
+
+     let formData = {
+      'items': [{
+       'id': product_id,
+       'quantity': 1
+       }],
+       sections: "cart-items,cart-icon-bubble,cart-live-region-text,cart-footer"
+     };
+     fetch('/cart/add.js', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(formData)
+     })
+     .then(
+  
+  */
+
+  let deleteProductCart = (product_id) => {
+    let formData = {
+      'items': [{
+       'id': product_id,
+       'quantity': 1
+       }]
+    }
+
+    fetch("/cart/clear.js")
+      .then(response => response.json())
+      .then(data => { 
+          closeDrawer()
+      });
   } 
 
-  var clearCart = function() {
-    fetch("/cart/clear.js")
+  let clearCart = () => {
+    
+      fetch("/cart/clear.js")
+      .then(response => response.json())
+      .then(data => { 
+          closeDrawer()
+      });
+  }
+
+  let addCart = (product_id, quantity) => {
+    
+    let formData = { quantity , id: product_id }
+
+    fetch("/cart/change.js", { method: "POST", body: JSON.stringify(formData), headers: { "Content-type": "application/json; charset=UTF-8"}})
     .then(response => response.json())
     .then(data => { 
-        closeDrawer()
     });
   }
 
-  var renderCart = function(data) {
+  let minusCart = (product_id, quantity) => {
+
+    let formData = { quantity , id: product_id }
+
+    fetch("/cart/change.js", { method: "POST", body: JSON.stringify(formData), headers: { "Content-type": "application/json; charset=UTF-8"}})
+    .then(response => response.json())
+    .then(data => { 
+    });
+    
+  }
+
+  let renderCart = (data) => {
     let items = data.items
     console.log("render cart .......")
     
@@ -180,8 +233,8 @@ var drawer = function () {
                 </path></svg>
 
                         </button>
-                        <input value="${item.quantity}" id="minus-${item.id}" class="quantity__input" type="number" name="quantity" min="1" value="1" form="product-form-template--15578804682977__main">
-                        <button class="mini-cart-btn quantity__button no-js-hidden" name="plus" type="button">
+                        <input value="${item.quantity}" id="input-${item.id}" class="quantity__input" type="number" name="quantity" min="1" value="1" form="product-form-template--15578804682977__main">
+                        <button id="plus-${item.id}" class="mini-cart-btn quantity__button no-js-hidden" name="plus" type="button">
                           <span class="visually-hidden">Aumentar cantidad para Camiseta</span>
                           <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" fill="none" viewBox="0 0 10 10">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor">
@@ -212,14 +265,15 @@ var drawer = function () {
     for (const button of buttons) {
         button.addEventListener("click", (e)=> {
           console.log(e.target.name)
-          let product_id = e.target.id
+          let product_id = e.target.id.replace("minus-", "").replace("plus-", "")
+          let currentValue = document.getElementById(`input-${product_id}`).value
           switch(e.target.name) {
             case "minus": 
-              alert(product_id)
+              minusCart(product_id, currentValue)
             break
 
             case "plus": 
-              alert(product_id)
+               addCart(product_id, currentValue)
             break
           }
         })
