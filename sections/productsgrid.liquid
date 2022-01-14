@@ -1,0 +1,38 @@
+<div class="custom-text-section">
+  <h2> {{ section.settings.custom_text_title }} </h2>
+  <div>{{ section.settings.custom_text_body }}</div>
+</div>
+
+
+
+{% assign product = all_products["camiseta"] %}
+
+{{ product | json }}
+
+{% for collection in product.collections %}
+    {{ collection.title }}
+    <br>
+    Total products in collection: {{ collection.all_products_count }}
+    {{ collection | json  }}
+    {{ collection.created_at }}
+{% endfor %}
+
+{% schema %}
+  {
+    "name": "Text Box",
+    "settings": [
+      {
+        "id": "custom_text_title",
+        "type": "text",
+        "label": "Text box heading",
+        "default": "Title"
+      },
+      {
+        "id": "custom_text_body",
+        "type": "richtext",
+        "label": "Add custom text below",
+        "default": "<p>Add your text here</p>"
+      }
+    ]
+  }
+{% endschema %}

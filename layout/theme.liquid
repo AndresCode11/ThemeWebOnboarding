@@ -207,6 +207,7 @@
   </head>
 
   <body class="gradient">
+    {% section 'drawer' %}
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ "accessibility.skip_to_text" | t }}
     </a>
@@ -254,5 +255,8 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    
+    <script src="{{ 'drawer.js' | asset_url }}"></script>
+    {{ 'drawer.css' | asset_url | stylesheet_tag }}   
   </body>
 </html>

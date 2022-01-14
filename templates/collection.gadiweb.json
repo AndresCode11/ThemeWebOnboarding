@@ -3,6 +3,7 @@
     "main": {
       "type": "productsgrid"
     }
+    
   },
   "order": [
     "main"

@@ -27,6 +27,28 @@
       assign ratio = 1
     endif
   -%}
+  
+  {% for variant_product in card_product.variants %}
+  {% if variant_product.available %}
+    <img src="{{ variant_product.featured_media | img_url: '533x' }}"
+      sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+      alt="{{ variant_product.featured_media.alt | escape }}"
+      loading="lazy"
+      class="motion-reduce"
+      width="80"
+      height="80">
+
+      <button type="submit" name="add" id="{{ variant_product.id }}" class="mini-grid product-form__submit button button--full-width button--secondary">
+        <span>Agregar al carrito</span>
+        <div class="loading-overlay__spinner hidden">
+          <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
+    </button>
+    {% endif %}
+  {% endfor %}
+
   <div class="card-wrapper underline-links-hover">
     <div class="card
       card--{{ settings.card_style }}
@@ -185,3 +207,9 @@
     </div>
   </div>
 {%- endif -%}
+
+<script src="{{ 'card-notification.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'card-product-events.js' | asset_url }}" defer="defer"></script>
+
+
+
