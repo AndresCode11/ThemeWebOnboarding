@@ -38,7 +38,10 @@ if (!customElements.get('product-form')) {
             return;
           }
 
+          // Handle the click event to open Drawer
+          document.getElementById("cart-icon-bubble").click()
           this.cartNotification.renderContents(response);
+          
         })
         .catch((e) => {
           console.error(e);
